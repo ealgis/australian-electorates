@@ -1,0 +1,7 @@
+LC generated from LA with:
+
+SELECT right(name,2) AS uh, 'LC' as house, st_union(geom) as geom
+    INTO TABLE waec2011_final_boundaries_lc
+    FROM waec2011_final_boundaries
+    GROUP BY uh;
+

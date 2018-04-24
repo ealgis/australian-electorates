@@ -1,0 +1,6 @@
+Grabbed periodically from the AEC:
+
+    find www.aec.gov.au \( -type f -name "*.htm" -or -name "*.html" \) -exec rm {} \;
+    wget -r -v -c -t 0 -e robots=off --no-parent http://www.aec.gov.au/Electorates/gis/gis_datadownload.htm
+    find www.aec.gov.au \( -type f -name "*.htm" -or -name "*.html" \) -exec rm {} \;
+
