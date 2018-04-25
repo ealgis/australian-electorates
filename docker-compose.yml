@@ -1,0 +1,21 @@
+version: '2'
+services:
+  db:
+    image: shongololo/postgis:2.4
+    volumes:
+      - ./:/app
+    ports:
+      - "5432:5432"
+
+  dataloader:
+    image: ealgis/ealgis-ingest-base:latest
+    volumes:
+      - ./:/app
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=postgres
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+    depends_on:
+    - db
