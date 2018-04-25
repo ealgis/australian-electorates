@@ -22,15 +22,14 @@ def one(l):
 def load_shapes(factory, basedir, tmpdir):
     def load_mapinfo(table_name, filename):
         with ZipAccess(None, tmpdir, filename) as z:
-            mifile = one(z.glob('*.TAB'))
-            logger.debug(mifile)
-            instance = MapInfoLoader(loader.dbschema(), mifile, table_name=table_name)
+            mipath = z.getdir() + '/'
+            logger.debug([tmpdir, filename, mipath])
+            instance = MapInfoLoader(loader.dbschema(), mipath, table_name=table_name)
             instance.load(loader)
 
     def load_shapefile(table_name, filename, srid):
         with ZipAccess(None, tmpdir, filename) as z:
             shpfile = one(z.glob('*.shp'))
-            logger.debug(shpfile)
             instance = ShapeLoader(loader.dbschema(), shpfile, srid, table_name=table_name)
             instance.load(loader)
 
@@ -38,13 +37,19 @@ def load_shapes(factory, basedir, tmpdir):
     WGS84 = 4326
     GDA94 = 4283
     shapes = {
-        ('australian_federal_electorate_boundaries', 'Australian Federal Electorate Boundaries (AEC)'): [
+        ('au_federal_electorate_boundaries', 'Australian Federal Electorate Boundaries (AEC)'): [
             ('federal_2001', FED_DESCR % 2001, 'Federal/COM_ELB_2001.zip', load_mapinfo, ()),
             ('federal_2004', FED_DESCR % 2004, 'Federal/COM_ELB_2004.zip', load_shapefile, (WGS84,)),
             ('federal_2007', FED_DESCR % 2007, 'Federal/COM_ELB_2007.zip', load_shapefile, (WGS84,)),
             ('federal_2010', FED_DESCR % 2010, 'Federal/national-esri-2010.zip', load_shapefile, (GDA94,)),
             ('federal_2013', FED_DESCR % 2013, 'Federal/national-esri-16122011.zip', load_shapefile, (GDA94,)),
             ('federal_2016', FED_DESCR % 2016, 'Federal/national-midmif-09052016.zip', load_mapinfo, ())
+        ],
+        ('au_wa_state_electorate_boundaries', 'Western Australian State Electorate Boundaries (EBWA)'): [
+            ('wa_2011_la', 'Western Australian Legislative Assembly 2011', 'WA/2011/waec2011_final_boundaries.zip', load_shapefile, (WGS84,)),
+            ('wa_2011_lc', 'Western Australian Legislative Council 2011', 'WA/2011/waec2011_final_boundaries_lc.zip', load_shapefile, (WGS84,)),
+            ('wa_2015_la', 'Western Australian Legislative Assembly 2015', 'WA/2015/2015 Final Boundaries LA.zip', load_mapinfo, ()),
+            ('wa_2015_lc', 'Western Australian Legislative Council 2015', 'WA/2015/2015 Final Boundaries LC.zip', load_mapinfo, ()),
         ]
     }
 
