@@ -50,6 +50,24 @@ def load_shapes(factory, basedir, tmpdir):
             ('wa_2011_lc', 'Western Australian Legislative Council 2011', 'WA/2011/waec2011_final_boundaries_lc.zip', load_shapefile, (WGS84,)),
             ('wa_2015_la', 'Western Australian Legislative Assembly 2015', 'WA/2015/2015 Final Boundaries LA.zip', load_mapinfo, ()),
             ('wa_2015_lc', 'Western Australian Legislative Council 2015', 'WA/2015/2015 Final Boundaries LC.zip', load_mapinfo, ()),
+        ],
+        ('au_nsw_state_electorate_boundaries', 'New South Wales State Electorate Boundaries'): [
+            ('nsw_2013', 'New South Wales State Boundaries 2013', 'NSW/2013/GIS_Files.zip', load_mapinfo, ()),
+        ],
+        ('au_qld_state_electorate_boundaries', 'Queensland State Electorate Boundaries'): [
+            ('qld_2008', 'Queensland State Boundaries 2008', 'QLD/2008/qld_2008.zip', load_shapefile, (GDA94, )),
+            ('qld_2017', 'Queensland State Boundaries 2017', 'QLD/2017/qld_2017.zip', load_shapefile, (GDA94, )),
+        ],
+        ('au_sa_state_electorate_boundaries', 'South Australian State Electorate Boundaries'): [
+            ('sa_2010', 'South Australian State Boundaries 2010', 'SA/2010/StateElectorates2010_shp.zip', load_shapefile, (GDA94, )),
+            ('sa_2014', 'South Australian State Boundaries 2014', 'SA/2014/StateElectorates_shp.zip', load_shapefile, (GDA94, )),
+            ('sa_2018', 'South Australian State Boundaries 2018', 'SA/2018/StateElectorates2018_shp.zip', load_shapefile, (GDA94, )),
+        ],
+        ('au_vic_state_electorate_boundaries', 'Victorian State Electorate Boundaries'): [
+            ('vic_2001_la', 'Victorian State Legislative Assembly Boundaries 2001', 'Vic/2001/vic_assembly_2001_aug10.zip', load_shapefile, (GDA94, )),
+            ('vic_2005_lc', 'Victorian State Legislative Council Boundaries 2005', 'Vic/2005/vic_council_2005_aug10.zip', load_shapefile, (GDA94, )),
+            ('vic_2013_la', 'Victorian State Legislative Assembly Boundaries 2013', 'Vic/2013/Final_DistrictBoundaries_region.zip', load_shapefile, (GDA94, )),
+            ('vic_2013_lc', 'Victorian State Legislative Council Boundaries 2013', 'Vic/2013/Final_RegionBoundaries_region.zip', load_shapefile, (GDA94, )),
         ]
     }
 
