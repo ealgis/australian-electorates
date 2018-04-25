@@ -20,11 +20,11 @@ def one(l):
 
 
 def load_shapes(factory, basedir, tmpdir):
-    def load_mapinfo(table_name, filename, srid):
+    def load_mapinfo(table_name, filename):
         with ZipAccess(None, tmpdir, filename) as z:
             mifile = one(z.glob('*.TAB'))
             logger.debug(mifile)
-            instance = MapInfoLoader(loader.dbschema(), mifile, srid, table_name=table_name)
+            instance = MapInfoLoader(loader.dbschema(), mifile, table_name=table_name)
             instance.load(loader)
 
     def load_shapefile(table_name, filename, srid):
@@ -39,12 +39,12 @@ def load_shapes(factory, basedir, tmpdir):
     GDA94 = 4283
     shapes = {
         ('australian_federal_electorate_boundaries', 'Australian Federal Electorate Boundaries (AEC)'): [
-            ('federal_2001', FED_DESCR % 2001, 'Federal/COM_ELB_2001.zip', load_mapinfo, GDA94),
-            ('federal_2004', FED_DESCR % 2004, 'Federal/COM_ELB_2004.zip', load_shapefile, WGS84),
-            ('federal_2007', FED_DESCR % 2007, 'Federal/COM_ELB_2007.zip', load_shapefile, WGS84),
-            ('federal_2010', FED_DESCR % 2010, 'Federal/national-esri-2010.zip', load_shapefile, GDA94),
-            ('federal_2013', FED_DESCR % 2013, 'Federal/national-esri-16122011.zip', load_shapefile, GDA94),
-            ('federal_2016', FED_DESCR % 2016, 'Federal/national-midmif-09052016.zip', load_mapinfo, GDA94)
+            ('federal_2001', FED_DESCR % 2001, 'Federal/COM_ELB_2001.zip', load_mapinfo, ()),
+            ('federal_2004', FED_DESCR % 2004, 'Federal/COM_ELB_2004.zip', load_shapefile, (WGS84,)),
+            ('federal_2007', FED_DESCR % 2007, 'Federal/COM_ELB_2007.zip', load_shapefile, (WGS84,)),
+            ('federal_2010', FED_DESCR % 2010, 'Federal/national-esri-2010.zip', load_shapefile, (GDA94,)),
+            ('federal_2013', FED_DESCR % 2013, 'Federal/national-esri-16122011.zip', load_shapefile, (GDA94,)),
+            ('federal_2016', FED_DESCR % 2016, 'Federal/national-midmif-09052016.zip', load_mapinfo, ())
         ]
     }
 
@@ -53,8 +53,8 @@ def load_shapes(factory, basedir, tmpdir):
         loader = factory.make_loader(schema_name, mandatory_srids=[3112, 3857])
         loader.set_metadata(name='', description=schema_description)
         loader.session.commit()
-        for table_name, description, zip_path, loader_fn, srid in to_load:
-            loader_fn(table_name, os.path.join(basedir, zip_path), srid)
+        for table_name, description, zip_path, loader_fn, loader_args in to_load:
+            loader_fn(table_name, os.path.join(basedir, zip_path), *loader_args)
             loader.set_table_metadata(table_name, {'description': description})
         results.append(loader.result())
     return results
