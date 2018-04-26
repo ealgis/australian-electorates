@@ -1,7 +1,7 @@
 version: '2'
 services:
   db:
-    image: shongololo/postgis:2.4
+    image: mdillon/postgis:10-alpine
     volumes:
       - ./:/app
     ports:
