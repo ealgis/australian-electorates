@@ -4,8 +4,6 @@ services:
     image: mdillon/postgis:10-alpine
     volumes:
       - ./:/app
-    ports:
-      - "5432:5432"
 
   dataloader:
     image: ealgis/ealgis-ingest-base:latest
