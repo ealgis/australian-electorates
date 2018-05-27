@@ -5,6 +5,7 @@
 from ealgis_common.db import DataLoaderFactory
 from ealgis_common.util import make_logger
 from ealgis_common.loaders import ZipAccess, ShapeLoader, MapInfoLoader, KMLLoader
+from datetime import datetime
 import os.path
 
 
@@ -81,7 +82,11 @@ def load_shapes(factory, basedir, tmpdir):
     results = []
     for (schema_name, schema_description), to_load in shapes.items():
         loader = factory.make_loader(schema_name, mandatory_srids=[3112, 3857])
-        loader.set_metadata(name='', description=schema_description)
+        loader.set_metadata(
+            name=schema_description,
+            family="Australian Electorate Boundaries",
+            date_published=datetime(2018, 5, 27, 0, 0, 0),  # Set in UTC
+            description='Collected geometries from the relevant government authority')
         loader.session.commit()
         for table_name, description, zip_path, loader_fn, loader_args in to_load:
             loader_fn(table_name, os.path.join(basedir, zip_path), *loader_args)
