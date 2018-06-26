@@ -81,17 +81,17 @@ def load_shapes(factory, basedir, tmpdir):
 
     results = []
     for (schema_name, schema_description), to_load in shapes.items():
-        loader = factory.make_loader(schema_name, mandatory_srids=[3112, 3857])
-        loader.set_metadata(
-            name=schema_description,
-            family="Australian Electorate Boundaries",
-            date_published=datetime(2018, 5, 27, 0, 0, 0),  # Set in UTC
-            description='Collected geometries from the relevant government authority')
-        loader.session.commit()
-        for table_name, description, zip_path, loader_fn, loader_args in to_load:
-            loader_fn(table_name, os.path.join(basedir, zip_path), *loader_args)
-            loader.set_table_metadata(table_name, {'description': description})
-        results.append(loader.result())
+        with factory.make_loader(schema_name, mandatory_srids=[3112, 3857]) as loader:
+            loader.set_metadata(
+                name=schema_description,
+                family="Australian Electorate Boundaries",
+                date_published=datetime(2018, 5, 27, 0, 0, 0),  # Set in UTC
+                description='Collected geometries from the relevant government authority')
+            loader.session.commit()
+            for table_name, description, zip_path, loader_fn, loader_args in to_load:
+                loader_fn(table_name, os.path.join(basedir, zip_path), *loader_args)
+                loader.set_table_metadata(table_name, {'description': description})
+            results.append(loader.result())
     return results
 
 
