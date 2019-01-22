@@ -48,7 +48,8 @@ def load_shapes(factory, basedir, tmpdir):
             ('federal_2007', FED_DESCR % 2007, 'Federal/COM_ELB_2007.zip', load_shapefile, (WGS84,)),
             ('federal_2010', FED_DESCR % 2010, 'Federal/national-esri-2010.zip', load_shapefile, (GDA94,)),
             ('federal_2013', FED_DESCR % 2013, 'Federal/national-esri-16122011.zip', load_shapefile, (GDA94,)),
-            ('federal_2016', FED_DESCR % 2016, 'Federal/national-midmif-09052016.zip', load_mapinfo, ())
+            ('federal_2016', FED_DESCR % 2016, 'Federal/national-midmif-09052016.zip', load_mapinfo, ()),
+            ('federal_2019', FED_DESCR % 2019, 'Federal/2019_election_federal_divisions.zip', load_shapefile, (GDA94,))
         ],
         ('au_wa_state_electorate_boundaries', 'Western Australian State Electorate Boundaries (EBWA)'): [
             ('wa_2011_la', 'Western Australian Legislative Assembly 2011', 'WA/2011/waec2011_final_boundaries.zip', load_shapefile, (WGS84,)),
