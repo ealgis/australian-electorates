@@ -4,7 +4,7 @@
 
 from ealgis_common.db import DataLoaderFactory
 from ealgis_common.util import make_logger
-from ealgis_common.loaders import ZipAccess, ShapeLoader, MapInfoLoader, KMLLoader
+from ealgis_common.loaders import ZipAccess, ShapeLoader, MapInfoLoader, KMLLoader, GeoPackageLoader
 from datetime import datetime
 import os.path
 
@@ -37,6 +37,12 @@ def load_shapes(factory, basedir, tmpdir):
     def load_kml(table_name, filename):
         instance = KMLLoader(loader.dbschema(), filename, table_name=table_name)
         instance.load(loader)
+
+    def load_geopackage(table_name, filename, layer_name):
+        with ZipAccess(None, tmpdir, filename) as z:
+            gpkgfile = one(z.glob('*.gpkg'))
+            instance = GeoPackageLoader(loader.dbschema(), gpkgfile, layer_name, table_name=table_name)
+            instance.load(loader)
 
     FED_DESCR = 'Australian Federal Electorate Boundaries as at the %d election'
     WGS84 = 4326

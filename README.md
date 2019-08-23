@@ -91,7 +91,7 @@ This loader currently supports data in Shapefiles, MID/MIF, and KML (godsforbid)
 
 Once you've found the spatial data from the relevant electoral commission simply:
 
-1. Zip up the data
+1. Zip up the data (the data files themselves - not the folder they're in)
 2. Give it a sensible filename
 3. Create a new directory for it (usually named after the year the boundaries were declared)
 
