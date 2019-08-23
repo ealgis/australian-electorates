@@ -3,11 +3,11 @@
 function defaults {
     : ${DBSERVER:="db"}
     : ${DBPORT:="5432"}
+    : ${DBNAME="ealgis"}
     : ${DBUSER="postgres"}
-    : ${DBNAME="${DBUSER}"}
     : ${DBPASS="${DBUSER}"}
 
-    export DBSERVER DBPORT DBUSER DBNAME DBPASS DOCKER_HOST
+    export DBSERVER DBPORT DBNAME DBUSER DBPASS DOCKER_HOST
 }
 
 function postgreswait {

@@ -1,19 +1,23 @@
-version: '2'
+version: "3"
 services:
-  db:
-    image: mdillon/postgis:10-alpine
-    volumes:
-      - ./:/app
+    db:
+        image: mdillon/postgis:10-alpine
+        volumes:
+            - ./:/app
+        environment:
+            - POSTGRES_DB=ealgis
+        ports:
+            - "5432:5432"
 
-  dataloader:
-    image: ealgis/ealgis-ingest-base:latest
-    volumes:
-      - ./:/app
-    environment:
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_NAME=postgres
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=postgres
-    depends_on:
-    - db
+    dataloader:
+        image: ealgis/ealgis-ingest-base:latest
+        volumes:
+            - ./:/app
+        environment:
+            - DB_HOST=db
+            - DB_PORT=5432
+            - DB_NAME=datastore
+            - DB_USERNAME=postgres
+            - DB_PASSWORD=postgres
+        depends_on:
+            - db

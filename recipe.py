@@ -99,7 +99,7 @@ def load_shapes(factory, basedir, tmpdir):
 def main():
     tmpdir = "/app/tmp"
     basedir = '/app/'
-    factory = DataLoaderFactory(db_name="scratch", clean=False)
+    factory = DataLoaderFactory(db_name="ealgis", clean=False)
     shape_results = load_shapes(factory, basedir, tmpdir)
     for result in shape_results:
         result.dump(tmpdir)
