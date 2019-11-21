@@ -25,4 +25,5 @@ defaults
 postgreswait
 
 echo "loading Australian electorate boundaries..."
+mkdir -p /app/dump
 python /app/recipe.py

@@ -103,12 +103,12 @@ def load_shapes(factory, basedir, tmpdir):
 
 
 def main():
-    tmpdir = "/app/tmp"
+    tmpdir = "/tmp"
     basedir = '/app/'
     factory = DataLoaderFactory(db_name="ealgis", clean=False)
     shape_results = load_shapes(factory, basedir, tmpdir)
     for result in shape_results:
-        result.dump(tmpdir)
+        result.dump('/app/dump')
 
 
 if __name__ == '__main__':
